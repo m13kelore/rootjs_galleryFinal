@@ -25,7 +25,12 @@ function initiateApp(){
     */
     makeGallery(pictures);
     addModalCloseHandler();
+
+    $("#gallery").sortable({
+        stop: buildNewArray
+    });
 }
+
 function makeGallery(imageArray){
     //use loops and jquery dom creation to make the html structure inside the #gallery section
     //create a loop to go through the pictures
@@ -91,6 +96,29 @@ function displayImage(){
     $("#galleryModal").modal("show");
 
 }
+
+function buildNewArray(){
+
+    var newImageArray = [];
+
+    $('#gallery figure').each(function(index,ele) {
+        var image = $(this).css("background-image");
+        var imageStart = image.lastIndexOf("images");
+        var imageEnd = image.lastIndexOf("g");
+        var imageAddress = image.slice(imageStart, imageEnd+1);
+        newImageArray.push(imageAddress);
+
+    });
+
+    pictures = newImageArray;
+    console.log(pictures);
+}
+//
+// function (){
+//
+//
+// }
+
 
 
 
